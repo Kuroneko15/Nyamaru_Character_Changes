@@ -12,7 +12,7 @@
 #define PLUGIN_VERSION			"1.8.6"
 #define PLUGIN_URL				"https://forums.alliedmods.net/showthread.php?p=2399163#post2399163"
 
-#define GAMEDATA				"survivor_chat_select"
+#define GAMEDATA				"l4d2_survivor_chat_select"
 
 #define DEBUG					0
 
