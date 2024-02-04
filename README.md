@@ -1,5 +1,14 @@
-# 8人独立模型以及换模型
+# Giới thiệu tổng quan
+Thay đổi nhân vật theo của bạn bằng cách gõ tên nhân vật vào chat [!tên nhân vật]
 
-### 建议安装
-* [Transition Restore Fix](https://forums.alliedmods.net/showthread.php?t=336287)`修复玩家/bot过关装备/属性混乱(与[l4d2] Save Weapon (Co-op)功能重复冲突)`
-* [l4d2_vocalizebasedmodel](https://github.com/umlka/l4d2/blob/main/l4d2_vocalizebasedmodel/l4d2_vocalizebasedmodel.sp)`修复某些情况下角色对话不是基于模型的问题`
+## Gợi ý cài đặt thêm để đạt hiệu quả:
+* [Transition Restore Fix](https://forums.alliedmods.net/showthread.php?t=336287) Khôi phục vũ khí khi qua màn.
+	**hoặc [l4d2_ty_saveweapons](https://github.com/fbef0102/L4D2-Plugins/blob/master/l4d2_ty_saveweapons/scripting/l4d2_ty_saveweapons.sp) Lưu ý đặt cvar trong cfg [l4d2_ty_saveweapons_save_bot] thành 0.
+* [l4d2_vocalizebasedmodel](https://github.com/fbef0102/L4D2-Plugins/blob/master/l4d2_vocalizebasedmodel/scripting/l4d2_vocalizebasedmodel.sp) Sửa lỗi bị lệch voice nhân vật khi thay đổi ngoại hình.
+
+* <details><summary>Lịch sử cập nhật:</summary>
+
+    * v1.0 (04-02-2024)
+        * Ra mắt plugin.
+
+</details>
