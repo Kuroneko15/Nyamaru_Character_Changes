@@ -18,11 +18,11 @@
 	* [L4D2_arm](https://forums.alliedmods.net/showthread.php?t=345947) không cần cài Mission Info Editor.<br/>
 		- Sửa map mà nhân vật chính set là l4d1 để chuyển tay và icon sang l4d2.<br/>
 		- Nếu là Admin bạn sẽ thấy nó không thay đổi nhưng sẽ thay đổi với những người chơi tham gia server.<br/>
+- - - -
 * <details><summary>Lịch sử cập nhật:</summary>
 * v1.1 (11-02-2024)<br/>
 	- Update code mới.<br/>
 	- Tích hợp thêm vocalizebasedmodel và l4d2_arm. (Luna report)<br/>	
 * v1.0 (03-01-2024)<br/>
-	- Ra mắt plugin.
-
+	- Ra mắt plugin.<br/>
 </details>
