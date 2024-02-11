@@ -67,6 +67,7 @@ int
 	g_iSelectedClient[MAXPLAYERS + 1];
 
 bool
+	g_bLateLoad,
 	g_bAutoModel,
 	g_bTransition,
 	g_bTransitioned,
@@ -108,6 +109,18 @@ public Plugin myinfo =
 	url = "N/A"
 };
 
+public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
+{
+	if (GetEngineVersion() != Engine_Left4Dead2)
+	{
+		strcopy(error, err_max, "Plugin only supports Left 4 Dead 2.");
+		return APLRes_SilentFailure;
+	}
+
+	g_bLateLoad = late;
+	return APLRes_Success;
+}
+
 public void OnPluginStart()
 {
 	InitGameData();
@@ -132,7 +145,7 @@ public void OnPluginStart()
 	RegConsoleCmd("sm_f",			cmdBikerUse,	"Changes your survivor character into Francis");
 	RegConsoleCmd("sm_l",			cmdLouisUse,	"Changes your survivor character into Louis");
 	
-	RegAdminCmd("sm_csm",			cmdCsc,			ADMFLAG_ROOT, "Brings up a menu to admin select for players character");
+	RegAdminCmd("sm_csm",			cmdCsc,			ADMFLAG_ROOT);
 	RegConsoleCmd("sm_csm",			cmdCsm,			"Brings up a menu to select a client's character");
 	RegConsoleCmd("sm_nhanvat",		cmdCsm,			"Brings up a menu to select a client's character");
 
@@ -153,8 +166,30 @@ public void OnPluginStart()
 	if (LibraryExists("adminmenu") && ((topmenu = GetAdminTopMenu())))
 		OnAdminMenuReady(topmenu);
 
+	if (g_bLateLoad)
+	{
+		for (int i = 1; i <= MaxClients; i++)
+		{
+			if (IsClientInGame(i))
+				OnClientPutInServer(i);
+		}
+	}
+	
 	for (int i; i < sizeof g_sSurModels; i++)
 		g_smSurModels.SetValue(g_sSurModels[i], i);
+}
+
+public void OnClientPutInServer(int client)
+{
+	SDKHook(client, SDKHook_PostThinkPost, Hook_OnPostThinkPost);
+}
+
+void Hook_OnPostThinkPost(int client)
+{
+	if (!IsPlayerAlive(client) || GetClientTeam(client) != 2) 
+		return;
+
+	VoiceModel(client);
 }
 
 Action umSayText2(UserMsg msg_id, BfRead msg, const int[] players, int playersNum, bool reliable, bool init)
@@ -287,6 +322,95 @@ char[] GetModelName(int client)
 
 	strcopy(model, sizeof model, idx == 8 ? "unknown" : g_sSurNames[idx]);
 	return model;
+}
+
+// Voice base character
+void BillVoice(int client)
+{
+	SetVariantString("who:NamVet:0");
+	DispatchKeyValue(client, "targetname", "NamVet");
+	AcceptEntityInput(client, "AddContext");
+}
+
+void ZoeyVoice(int client)
+{
+	SetVariantString("who:TeenGirl:0");
+	DispatchKeyValue(client, "targetname", "TeenGirl");
+	AcceptEntityInput(client, "AddContext");
+}
+
+void LouisVoice(int client)
+{
+	SetVariantString("who:Manager:0");
+	DispatchKeyValue(client, "targetname", "Manager");
+	AcceptEntityInput(client, "AddContext");
+}
+
+void FrancisVoice(int client)
+{
+	SetVariantString("who:Biker:0");
+	DispatchKeyValue(client, "targetname", "Biker");
+	AcceptEntityInput(client, "AddContext");
+}
+
+void NickVoice(int client)
+{
+	SetVariantString("who:Gambler:0");
+	DispatchKeyValue(client, "targetname", "Gambler");
+	AcceptEntityInput(client, "AddContext");
+}
+
+void RochelleVoice(int client)
+{
+	SetVariantString("who:Producer:0");
+	DispatchKeyValue(client, "targetname", "Producer");
+	AcceptEntityInput(client, "AddContext");
+}
+
+void CoachVoice(int client)
+{
+	SetVariantString("who:Coach:0");
+	DispatchKeyValue(client, "targetname", "Coach");
+	AcceptEntityInput(client, "AddContext");
+}
+
+void EllisVoice(int client)
+{
+	SetVariantString("who:Mechanic:0");
+	DispatchKeyValue(client, "targetname", "Mechanic");
+	AcceptEntityInput(client, "AddContext");
+}
+
+void VoiceModel(int client)
+{
+	static char model[31];
+	GetClientModel(client, model, sizeof model);
+	switch(model[29])
+	{
+		case 'c'://coach
+			CoachVoice(client);
+
+		case 'b'://nick
+			NickVoice(client);
+
+		case 'd'://rochelle
+			RochelleVoice(client);
+
+		case 'h'://ellis
+			EllisVoice(client);
+
+		case 'v'://bill
+			BillVoice(client);
+
+		case 'n'://zoey
+			ZoeyVoice(client);
+
+		case 'e'://francis
+			FrancisVoice(client);
+
+		case 'a'://louis
+			LouisVoice(client);
+	}
 }
 
 int Csc_MenuHandler(Menu menu, MenuAction action, int client, int param2)
