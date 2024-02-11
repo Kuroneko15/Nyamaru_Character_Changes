@@ -22,8 +22,8 @@
 - - - -
 * <details><summary>Lịch sử cập nhật:</summary>
 	* v1.1 (11-02-2024)<br/>
-		- Update code mới.<br/>
-		- Tích hợp thêm vocalizebasedmodel và l4d2_arm. <br/>	
+		* Update code mới.<br/>
+		* Tích hợp thêm vocalizebasedmodel và l4d2_arm. <br/>	
 	* v1.0 (03-01-2024)<br/>
-		- Ra mắt plugin.
+		* Ra mắt plugin.
 </details>
