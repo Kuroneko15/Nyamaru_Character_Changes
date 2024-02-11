@@ -8,7 +8,7 @@
 	* !csm (cùng là một lệnh như có quyền đổi nhân vật người chơi khác)<br/>
 - - - -
 * Loại bỏ các plugins sau để tránh xung đột:
-	* [l4d2_vocalizebasedmodel](https://forums.alliedmods.net/showthread.php?t=336287) Plugin đã được tích hợp chung.<br/>
+	* [l4d2_vocalizebasedmodel](https://github.com/fbef0102/L4D2-Plugins/tree/master/l4d2_vocalizebasedmodel) Plugin đã được tích hợp chung.<br/>
 - - - -
 * Gợi ý cài đặt thêm để đạt hiệu quả:
 	* [Transition Restore Fix](https://forums.alliedmods.net/showthread.php?t=336287) Khôi phục vũ khí khi qua màn.<br/>
