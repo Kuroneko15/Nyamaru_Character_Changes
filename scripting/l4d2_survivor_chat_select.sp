@@ -102,10 +102,10 @@ static const char
 
 public Plugin myinfo = 
 {
-	name = "[L4D2] Survivor Change",
-	author = "Nyamaru",
+	name = "L4D2 Survivor Chat Select",
+	author = "Lyseria",
 	description = "You can change character in server.",
-	version = "1.0.1",
+	version = "1.2",
 	url = "N/A"
 };
 
@@ -149,10 +149,10 @@ public void OnPluginStart()
 	RegConsoleCmd("sm_csm",			cmdCsm,			"Brings up a menu to select a client's character");
 	RegConsoleCmd("sm_nhanvat",		cmdCsm,			"Brings up a menu to select a client's character");
 
-	g_cAutoModel =			CreateConVar("nya_auto_changes",		"0",	"Auto changes different characters for each player? \n0=Disable, 1=Enable", FCVAR_NOTIFY);
-	g_cTabHUDBar =			CreateConVar("nya_tab_show",			"1",	"Tab status team characters displayed? [Recommend keep my value] \n0=Default, 1=L4D1, 2=L4D2, 3=Both.", FCVAR_NOTIFY);
-	g_cAdminFlags =			CreateConVar("nya_admin_only",			"",		"Only admin can changes character? \nEmpty = Everyone can use, z = admin have flags root.", FCVAR_NOTIFY);
-	g_cInTransition =		CreateConVar("nya_restore_transition",	"1",	"Plugin will prevent restoring to the original model when passing levels?", FCVAR_NOTIFY);
+	g_cAutoModel =			CreateConVar("l4d2_auto_character",			"0",	"Auto changes different characters for each player? \n0=Disable, 1=Enable", FCVAR_NOTIFY);
+	g_cTabHUDBar =			CreateConVar("l4d2_story_model",			"1",	"Tab status team characters displayed? [Recommend keep my value] \n0=Default, 1=L4D1, 2=L4D2, 3=Both.", FCVAR_NOTIFY);
+	g_cAdminFlags =			CreateConVar("l4d2_admin_only",				"",		"Only admin can changes character? \nEmpty = Everyone can use, z = admin have flags root.", FCVAR_NOTIFY);
+	g_cInTransition =		CreateConVar("l4d2_restore_transition",		"1",	"Disable restore back to original model when change map?", FCVAR_NOTIFY);
 	g_cPrecacheAllSur =		FindConVar("precache_all_survivors");
 
 	g_cAutoModel.AddChangeHook(CvarChanged);
@@ -160,7 +160,7 @@ public void OnPluginStart()
 	g_cAdminFlags.AddChangeHook(CvarChanged);
 	g_cInTransition.AddChangeHook(CvarChanged);
 
-	AutoExecConfig(true, "Nyamaru_character");
+	AutoExecConfig(true, "l4d2_survivor_chat_select");
 
 	TopMenu topmenu;
 	if (LibraryExists("adminmenu") && ((topmenu = GetAdminTopMenu())))
@@ -1247,13 +1247,13 @@ void RemovePlayerSlot(int client, int weapon)
 void InitGameData()
 {
 	char buffer[PLATFORM_MAX_PATH];
-	BuildPath(Path_SM, buffer, sizeof buffer, "gamedata/%s.txt", "Nyamaru_character");
+	BuildPath(Path_SM, buffer, sizeof buffer, "gamedata/%s.txt", "l4d2_survivor_chat_select");
 	if (!FileExists(buffer))
 		SetFailState("\n==========\nMissing required file: \"%s\".\n==========", buffer);
 
-	GameData hGameData = new GameData("Nyamaru_character");
+	GameData hGameData = new GameData("l4d2_survivor_chat_select");
 	if (!hGameData)
-		SetFailState("Failed to load \"%s.txt\" gamedata.", "Nyamaru_character");
+		SetFailState("Failed to load \"%s.txt\" gamedata.", "l4d2_survivor_chat_select");
 
 	g_pDirector = hGameData.GetAddress("CDirector");
 	if (!g_pDirector)
